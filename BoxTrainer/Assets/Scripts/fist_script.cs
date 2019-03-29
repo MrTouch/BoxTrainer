@@ -5,9 +5,6 @@ using UnityEngine;
 public class fist_script : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 5.0f;
-
-    [SerializeField]
     private sensei_script sensei;
 
     // Start is called before the first frame update
@@ -23,7 +20,7 @@ public class fist_script : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.name == "collider")
+        if(col.gameObject.name == "Handschuh")
         {
             sensei.lastCollision = col;
             sensei.collidingHand = this.gameObject;
