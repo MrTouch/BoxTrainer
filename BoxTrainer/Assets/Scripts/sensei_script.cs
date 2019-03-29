@@ -27,7 +27,7 @@ public class sensei_script : MonoBehaviour
     void Update()
     {
         //Set back & front hand
-        setHands();
+        if(Input.GetKeyDown("1")) setHands();
 
         //Check if collision occured in this frame
         if (lastCollision != null)
