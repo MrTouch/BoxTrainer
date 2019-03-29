@@ -8,15 +8,7 @@ public class fist_script : MonoBehaviour
     private float moveSpeed = 5.0f;
 
     [SerializeField]
-    private GameObject leftHand;
-
-    [SerializeField]
-    private GameObject rightHand;
-
-    [SerializeField]
     private sensei_script sensei;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +19,7 @@ public class fist_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        setHands();
-
+        /*
         if (Input.GetKey("1"))
         {
             transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z - moveSpeed * Time.deltaTime);
@@ -36,7 +27,7 @@ public class fist_script : MonoBehaviour
         if (Input.GetKey("2"))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
-        }
+        }*/
     }
 
     void OnCollisionEnter(Collision col)
@@ -48,20 +39,5 @@ public class fist_script : MonoBehaviour
         }
     }
 
-    void setHands() 
-    {
-        Vector3 leftHandPos = leftHand.transform.position;
-        Vector3 rightHandPos = rightHand.transform.position;
 
-        if (leftHandPos.z < rightHandPos.z)
-        {
-            sensei.frontHand = leftHand;
-            sensei.backHand = rightHand;
-        }
-        else
-        {
-            sensei.frontHand = rightHand;
-            sensei.backHand = leftHand;
-        }
-    }
 }
