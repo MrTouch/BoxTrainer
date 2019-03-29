@@ -12,17 +12,17 @@ public class AnimationController : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         stime = Time.time;
-        Debug.Log("set");
+        //Debug.Log("set");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("as: "+ (stime + dTime));
-        Debug.Log("asfd: " + Time.time);
+       // Debug.Log("as: "+ (stime + dTime));
+       // Debug.Log("asfd: " + Time.time);
         if (stime + dTime < Time.time)
         {
-            Debug.Log("time");
+          //  Debug.Log("time");
             animator.enabled = false;
         }
     }
