@@ -23,7 +23,7 @@ public class fist_script : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.name == "collider")
+        if(col.gameObject.name == "Handschuh")
         {
             sensei.lastCollision = col;
             sensei.collidingHand = this.gameObject;
