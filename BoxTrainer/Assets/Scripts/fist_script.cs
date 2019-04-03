@@ -22,8 +22,11 @@ public class fist_script : MonoBehaviour
     {
         if(col.gameObject.name == "Handschuh")
         {
-            sensei.lastCollision = col;
-            sensei.collidingHand = this.gameObject;
+            if(sensei.lastCollision == null)
+            {
+                sensei.lastCollision = col;
+                sensei.collidingHand = this.gameObject;
+            }
         }
     }
 

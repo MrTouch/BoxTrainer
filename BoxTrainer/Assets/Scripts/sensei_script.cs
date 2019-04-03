@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class sensei_script : MonoBehaviour
 {
-    [SerializeField] private Move currentMove = Move.jab;
+    private Move currentMove = Move.jab;
 
     [HideInInspector] public Collision lastCollision;
     [HideInInspector] public GameObject collidingHand;
@@ -27,6 +27,11 @@ public class sensei_script : MonoBehaviour
     private int jabHash = Animator.StringToHash("jab");
     private int punchHash = Animator.StringToHash("punch");
 
+    private int chooseDelay = 1;
+
+    private bool processedFlag = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,23 +45,18 @@ public class sensei_script : MonoBehaviour
         if(Input.GetKeyDown("1")) setHands();
 
         //Debug
-        /*
+        
         if (Input.GetKeyDown("2"))
-        {
-            chooseMoveDebug();
-        }
-
-        if (Input.GetKeyDown("3"))
         {
             audioController.playGood();
             animator.enabled = true;
-
-        }*/
+            StartCoroutine(chooseMoveCoroutine(chooseDelay));
+        }
 
 
         //// Move check logic ////
         //Check if collision occured in this frame
-        if (lastCollision != null)
+        if (lastCollision != null && !processedFlag)
         {
             audioController.playPunch();
 
@@ -68,11 +68,14 @@ public class sensei_script : MonoBehaviour
                     {
                         audioController.playGood();
                         animator.enabled = true;
-                        chooseMove();
+                        processedFlag = true;
+                        StartCoroutine(chooseMoveCoroutine(chooseDelay));
                      }
                     else
                     {
-                        audioController.playBad();                    
+                        audioController.playBad();
+                        lastCollision = null;
+                        processedFlag = false;
                     }
                     break;
 
@@ -81,11 +84,14 @@ public class sensei_script : MonoBehaviour
                     {
                         audioController.playGood();
                         animator.enabled = true;
-                        chooseMove();
+                        processedFlag = true;
+                        StartCoroutine(chooseMoveCoroutine(chooseDelay));
                     }
                     else
                     {
-                        audioController.playBad();                    
+                        audioController.playBad();
+                        lastCollision = null;
+                        processedFlag = false;
                     }
                     break;
 
@@ -94,11 +100,14 @@ public class sensei_script : MonoBehaviour
                     {
                         audioController.playGood();
                         animator.enabled = true;
-                        chooseMove();
+                        processedFlag = true;
+                        StartCoroutine(chooseMoveCoroutine(chooseDelay));
                     }
                     else
                     {
                         audioController.playBad();
+                        lastCollision = null;
+                        processedFlag = false;
                     }
                     break;
 
@@ -107,11 +116,14 @@ public class sensei_script : MonoBehaviour
                     {
                         audioController.playGood();
                         animator.enabled = true;
-                        chooseMove();
+                        processedFlag = true;
+                        StartCoroutine(chooseMoveCoroutine(chooseDelay));
                     }
                     else
                     {
                         audioController.playBad();
+                        lastCollision = null;
+                        processedFlag = false;
                     }
                     break;
 
@@ -120,11 +132,14 @@ public class sensei_script : MonoBehaviour
                     {
                         audioController.playGood();
                         animator.enabled = true;
-                        chooseMove();
+                        processedFlag = true;
+                        StartCoroutine(chooseMoveCoroutine(chooseDelay));
                     }
                     else
                     {
                         audioController.playBad();
+                        lastCollision = null;
+                        processedFlag = false;
                     }
                     break;
 
@@ -133,11 +148,14 @@ public class sensei_script : MonoBehaviour
                     {
                         audioController.playGood();
                         animator.enabled = true;
-                        chooseMove();
+                        processedFlag = true;
+                        StartCoroutine(chooseMoveCoroutine(chooseDelay));
                     }
                     else
                     {
                         audioController.playBad();
+                        lastCollision = null;
+                        processedFlag = false;
                     }
                     break;
 
@@ -146,8 +164,6 @@ public class sensei_script : MonoBehaviour
                     break;
             }
         }
-        //Reset collision at the end of each frame
-        lastCollision = null;
     }
 
     //Function to set front and back hand
@@ -166,9 +182,10 @@ public class sensei_script : MonoBehaviour
             frontHand = rightHand;
             backHand = leftHand;
         }
+        Debug.Log("FH: " + frontHand.gameObject.name + " BH: " + backHand.gameObject.name);
     }
 
-    void chooseMove() 
+    public void chooseMove() 
     { 
         currentMove =  (Move)Random.Range(0, System.Enum.GetValues(typeof(Move)).Length);
         audioController.playMove(currentMove);
@@ -203,43 +220,15 @@ public class sensei_script : MonoBehaviour
                 Debug.Log("Sensei: Unknown move for animation");
                 break;
         }
-    }
-
-    void chooseMoveDebug()
-    {
-        audioController.playMove(currentMove);
-
-        switch (currentMove)
-        {
-            case Move.hookLeft:
-                animator.SetTrigger(hookLeftHash);
-                break;
-
-            case Move.hookRight:
-                animator.SetTrigger(hookRightHash);
-                break;
-
-            case Move.jab:
-                animator.SetTrigger(jabHash);
-                break;
-
-            case Move.punch:
-                animator.SetTrigger(punchHash);
-                break;
-
-            case Move.uppercutLeft:
-                animator.SetTrigger(upperCutLeftHash);
-                break;
-
-            case Move.uppercutRight:
-                animator.SetTrigger(upperCutRightHash);
-                break;
-
-            default:
-                Debug.Log("Sensei: Unknown move for animation");
-                break;
-        }
+        lastCollision = null;
+        processedFlag = false;
     }
 
     public enum Move {jab,punch,uppercutLeft,uppercutRight,hookLeft,hookRight}
+
+    IEnumerator chooseMoveCoroutine(int delay)
+    {
+        yield return new WaitForSeconds(delay);
+        chooseMove();
+    }
 }
