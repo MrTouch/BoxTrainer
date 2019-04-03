@@ -16,6 +16,8 @@ public class sensei_script : MonoBehaviour
     [SerializeField] private GameObject leftHand;
     [SerializeField] private GameObject rightHand;
 
+    [SerializeField] audio_controller audioController;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,7 @@ public class sensei_script : MonoBehaviour
     {
         //Set back & front hand
         if(Input.GetKeyDown("1")) setHands();
+        if (Input.GetKeyDown("2")) audioController.playPunch();
 
         //Check if collision occured in this frame
         if (lastCollision != null)
@@ -101,14 +104,6 @@ public class sensei_script : MonoBehaviour
                     }
                     break;
 
-                case Move.block:
-                    //Do stuff
-                    break;
-
-                case Move.evade:
-                    //Do stuff
-                    break;
-
                 default:
                     Debug.Log("Unknown move");
                     break;
@@ -135,5 +130,5 @@ public class sensei_script : MonoBehaviour
             backHand = leftHand;
         }
     }
-    enum Move {jab,punch,uppercutLeft,uppercutRight,hookLeft,hookRight,block,evade}
+    public enum Move {jab,punch,uppercutLeft,uppercutRight,hookLeft,hookRight,block,evade}
 }
