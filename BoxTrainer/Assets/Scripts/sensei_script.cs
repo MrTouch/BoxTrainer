@@ -30,7 +30,7 @@ public class sensei_script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //chooseMove();
+        chooseMove();
     }
 
     // Update is called once per frame
@@ -40,12 +40,19 @@ public class sensei_script : MonoBehaviour
         if(Input.GetKeyDown("1")) setHands();
 
         //Debug
+        /*
         if (Input.GetKeyDown("2"))
         {
-            audioController.playGood();
-            animator.SetBool("continue", true);
             chooseMoveDebug();
         }
+
+        if (Input.GetKeyDown("3"))
+        {
+            audioController.playGood();
+            animator.enabled = true;
+
+        }*/
+
 
         //// Move check logic ////
         //Check if collision occured in this frame
@@ -60,7 +67,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == frontHand)
                     {
                         audioController.playGood();
-                        animator.SetBool("continue", true);
+                        animator.enabled = true;
                         chooseMove();
                      }
                     else
@@ -73,7 +80,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == backHand)
                     {
                         audioController.playGood();
-                        animator.SetBool("continue", true);
+                        animator.enabled = true;
                         chooseMove();
                     }
                     else
@@ -86,7 +93,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == leftHand)
                     {
                         audioController.playGood();
-                        animator.SetBool("continue", true);
+                        animator.enabled = true;
                         chooseMove();
                     }
                     else
@@ -99,7 +106,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == rightHand)
                     {
                         audioController.playGood();
-                        animator.SetBool("continue", true);
+                        animator.enabled = true;
                         chooseMove();
                     }
                     else
@@ -112,7 +119,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == leftHand)
                     {
                         audioController.playGood();
-                        animator.SetBool("continue", true);
+                        animator.enabled = true;
                         chooseMove();
                     }
                     else
@@ -125,7 +132,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == rightHand)
                     {
                         audioController.playGood();
-                        animator.SetBool("continue", true);
+                        animator.enabled = true;
                         chooseMove();
                     }
                     else

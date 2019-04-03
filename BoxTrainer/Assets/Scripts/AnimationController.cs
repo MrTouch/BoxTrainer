@@ -5,38 +5,33 @@ using UnityEngine;
 public class AnimationController : StateMachineBehaviour
 {
 
-    float stime;
+    float startTime;
 
     [SerializeField]
     float delayTime = 1.0f;
 
-
+    bool doneFlag = false;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        stime = Time.time;
+        startTime = Time.time;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       // Debug.Log("as: "+ (stime + dTime));
-       // Debug.Log("asfd: " + Time.time);
-        if (stime + delayTime < Time.time)
+        if (startTime + delayTime < Time.time && !doneFlag)
         {
             animator.enabled = false;
-        }
-        if (animator.GetBool("continue"))
-        {
-            animator.enabled = true;
-            animator.SetBool("continue", false);
+            doneFlag = true;
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        doneFlag = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
