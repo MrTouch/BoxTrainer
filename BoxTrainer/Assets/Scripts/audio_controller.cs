@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class audio_controller : MonoBehaviour
 {
-    [SerializeField] AudioSource[] punches;
+    [SerializeField] AudioClip[] punches;
 
-    [SerializeField] AudioSource jab;
-    [SerializeField] AudioSource punch;
-    [SerializeField] AudioSource uppercutLeft;
-    [SerializeField] AudioSource uppercutRight;
-    [SerializeField] AudioSource hookLeft;
-    [SerializeField] AudioSource hookRight;
+    [SerializeField] AudioClip jab;
+    [SerializeField] AudioClip punch;
+    [SerializeField] AudioClip uppercutLeft;
+    [SerializeField] AudioClip uppercutRight;
+    [SerializeField] AudioClip hookLeft;
+    [SerializeField] AudioClip hookRight;
 
-    [SerializeField] AudioSource good;
-    [SerializeField] AudioSource bad;
+    [SerializeField] AudioClip good;
+    [SerializeField] AudioClip bad;
 
-    [SerializeField] float punchMinPitch;
-    [SerializeField] float punchMaxPitch;
+    [SerializeField] float punchMinPitch = 0.5f;
+    [SerializeField] float punchMaxPitch = 1.5f;
+
+    [SerializeField] AudioSource source;
 
     // Start is called before the first frame update
     void Start()
@@ -33,9 +35,10 @@ public class audio_controller : MonoBehaviour
 
     public void playPunch()
     {
-        AudioSource punch = punches[Random.Range(0, punches.Length-1)];
-        punch.pitch = Random.Range(punchMinPitch, punchMaxPitch);
-        punch.Play();
+        AudioClip clip = punches[Random.Range(0, punches.Length - 1)];
+        source.clip = clip;
+        source.pitch = Random.Range(punchMinPitch, punchMaxPitch);
+        source.Play();
     }
 
     public void playMove(sensei_script.Move move)
@@ -44,27 +47,39 @@ public class audio_controller : MonoBehaviour
         switch (move)
         {
             case sensei_script.Move.jab:
-                jab.Play();
+                source.clip = jab;
+                source.pitch = 1.0f;
+                source.Play();
                 break;
 
             case sensei_script.Move.punch:
-                punch.Play();
+                source.clip = punch;
+                source.pitch = 1.0f;
+                source.Play(); 
                 break;
 
             case sensei_script.Move.uppercutLeft:
-                uppercutLeft.Play();
+                source.clip = uppercutLeft;
+                source.pitch = 1.0f;
+                source.Play();
                 break;
 
             case sensei_script.Move.uppercutRight:
-                uppercutRight.Play();
+                source.clip = uppercutRight;
+                source.pitch = 1.0f;
+                source.Play();
                 break;
 
             case sensei_script.Move.hookLeft:
-                hookLeft.Play(),
+                source.clip = hookLeft;
+                source.pitch = 1.0f;
+                source.Play();
                 break;
 
             case sensei_script.Move.hookRight:
-                hookRight.Play();
+                source.clip = hookRight;
+                source.pitch = 1.0f;
+                source.Play();
                 break;
 
             default:
@@ -75,11 +90,15 @@ public class audio_controller : MonoBehaviour
 
     public void playGood()
     {
-        good.Play();
+        source.clip = good;
+        source.pitch = 1.0f;
+        source.Play();
     }
 
     public void playBad()
     {
-        bad.Play();
+        source.clip = bad;
+        source.pitch = 1.0f;
+        source.Play();
     }
 }
