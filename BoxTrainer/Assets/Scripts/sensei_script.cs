@@ -18,6 +18,14 @@ public class sensei_script : MonoBehaviour
 
     [SerializeField] audio_controller audioController;
 
+    [SerializeField] Animator animator;
+
+    private int upperCutRightHash = Animator.StringToHash("upperCutRight");
+    private int upperCutLeftHash = Animator.StringToHash("upperCutLeft");
+    private int hookRightHash = Animator.StringToHash("hookRight");
+    private int hookLeftHash = Animator.StringToHash("hookLeft");
+    private int jabHash = Animator.StringToHash("jab");
+    private int punchHash = Animator.StringToHash("punch");
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +61,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == frontHand)
                     {
                         audioController.playGood();
+                        animator.SetBool("continue", true);
                         chooseMove();
                      }
                     else
@@ -65,6 +74,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == backHand)
                     {
                         audioController.playGood();
+                        animator.SetBool("continue", true);
                         chooseMove();
                     }
                     else
@@ -77,6 +87,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == leftHand)
                     {
                         audioController.playGood();
+                        animator.SetBool("continue", true);
                         chooseMove();
                     }
                     else
@@ -89,6 +100,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == rightHand)
                     {
                         audioController.playGood();
+                        animator.SetBool("continue", true);
                         chooseMove();
                     }
                     else
@@ -101,6 +113,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == leftHand)
                     {
                         audioController.playGood();
+                        animator.SetBool("continue", true);
                         chooseMove();
                     }
                     else
@@ -113,6 +126,7 @@ public class sensei_script : MonoBehaviour
                     if (collidingHand == rightHand)
                     {
                         audioController.playGood();
+                        animator.SetBool("continue", true);
                         chooseMove();
                     }
                     else
@@ -152,6 +166,37 @@ public class sensei_script : MonoBehaviour
     { 
         currentMove =  (Move)Random.Range(0, System.Enum.GetValues(typeof(Move)).Length);
         audioController.playMove(currentMove);
+
+        switch (currentMove)
+        {
+            case Move.hookLeft:
+                animator.SetTrigger(hookLeftHash);
+                break;
+
+            case Move.hookRight:
+                animator.SetTrigger(hookRightHash);
+                break;
+
+            case Move.jab:
+                animator.SetTrigger(jabHash);
+                break;
+
+            case Move.punch:
+                animator.SetTrigger(punchHash);
+                break;
+
+            case Move.uppercutLeft:
+                animator.SetTrigger(upperCutLeftHash);
+                break;
+
+            case Move.uppercutRight:
+                animator.SetTrigger(upperCutRightHash);
+                break;
+
+            default:
+                Debug.Log("Sensei: Unknown move for animation");
+                break;
+        }
     }
 
     public enum Move {jab,punch,uppercutLeft,uppercutRight,hookLeft,hookRight}

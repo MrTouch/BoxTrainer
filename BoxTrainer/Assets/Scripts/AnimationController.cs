@@ -6,13 +6,16 @@ public class AnimationController : StateMachineBehaviour
 {
 
     float stime;
+
     [SerializeField]
-    float dTime = 1.0f;
+    float delayTime = 1.0f;
+
+
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         stime = Time.time;
-        //Debug.Log("set");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,10 +23,14 @@ public class AnimationController : StateMachineBehaviour
     {
        // Debug.Log("as: "+ (stime + dTime));
        // Debug.Log("asfd: " + Time.time);
-        if (stime + dTime < Time.time)
+        if (stime + delayTime < Time.time)
         {
-          //  Debug.Log("time");
             animator.enabled = false;
+        }
+        if (animator.GetBool("continue"))
+        {
+            animator.enabled = true;
+            animator.SetBool("continue", false);
         }
     }
 
