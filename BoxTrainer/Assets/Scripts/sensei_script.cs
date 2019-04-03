@@ -40,12 +40,11 @@ public class sensei_script : MonoBehaviour
         if(Input.GetKeyDown("1")) setHands();
 
         //Debug
-        if (Input.GetKeyDown("2")) audioController.playPunch();
-
-        if (Input.GetKeyDown("3"))
+        if (Input.GetKeyDown("2"))
         {
+            audioController.playGood();
+            animator.SetBool("continue", true);
             chooseMove();
-            Debug.Log(currentMove);
         }
 
         //// Move check logic ////
