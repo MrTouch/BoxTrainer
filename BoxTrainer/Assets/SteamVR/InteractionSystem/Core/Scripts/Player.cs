@@ -67,6 +67,8 @@ namespace Valve.VR.InteractionSystem
 		{
 			get
 			{
+                //fix because hands were deleted
+                return 0;
 				int count = 0;
 				for ( int i = 0; i < hands.Length; i++ )
 				{
