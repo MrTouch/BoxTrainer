@@ -24,6 +24,7 @@ public class fist_script : MonoBehaviour
         {
             sensei.lastCollision = col;
             sensei.collidingHand = this.gameObject;
+
         }
     }
 
