@@ -22,7 +22,7 @@ public class sensei_script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        chooseMove();
     }
 
     // Update is called once per frame
@@ -30,82 +30,99 @@ public class sensei_script : MonoBehaviour
     {
         //Set back & front hand
         if(Input.GetKeyDown("1")) setHands();
+
+        //Debug
         if (Input.GetKeyDown("2")) audioController.playPunch();
 
+        if (Input.GetKeyDown("3"))
+        {
+            chooseMove();
+            Debug.Log(currentMove);
+        }
+
+        //// Move check logic ////
         //Check if collision occured in this frame
         if (lastCollision != null)
         {
+            audioController.playPunch();
+
             //Switch on move, which should be done
             switch (currentMove)
             {
                 case Move.jab:
                     if (collidingHand == frontHand)
                     {
-                        Debug.Log("Nice one");
-                    }
+                        audioController.playGood();
+                        chooseMove();
+                     }
                     else
                     {
-                        Debug.Log("Much to learn you still have my young padawan.");
+                        audioController.playBad();                    
                     }
                     break;
 
                 case Move.punch:
                     if (collidingHand == backHand)
                     {
-                        Debug.Log("Nice one");
+                        audioController.playGood();
+                        chooseMove();
                     }
                     else
                     {
-                        Debug.Log("Much to learn you still have my young padawan.");
+                        audioController.playBad();                    
                     }
                     break;
 
                 case Move.uppercutLeft:
                     if (collidingHand == leftHand)
                     {
-                        Debug.Log("Nice one");
+                        audioController.playGood();
+                        chooseMove();
                     }
                     else
                     {
-                        Debug.Log("Much to learn you still have my young padawan.");
+                        audioController.playBad();
                     }
                     break;
 
                 case Move.uppercutRight:
                     if (collidingHand == rightHand)
                     {
-                        Debug.Log("Nice one");
+                        audioController.playGood();
+                        chooseMove();
                     }
                     else
                     {
-                        Debug.Log("Much to learn you still have my young padawan.");
+                        audioController.playBad();
                     }
                     break;
 
                 case Move.hookLeft:
                     if (collidingHand == leftHand)
                     {
-                        Debug.Log("Nice one");
+                        audioController.playGood();
+                        chooseMove();
                     }
                     else
                     {
-                        Debug.Log("Much to learn you still have my young padawan.");
+                        audioController.playBad();
                     }
                     break;
 
                 case Move.hookRight:
                     if (collidingHand == rightHand)
                     {
-                        Debug.Log("Nice one");
+                        audioController.playGood();
+                        chooseMove();
                     }
                     else
                     {
-                        Debug.Log("Much to learn you still have my young padawan.");
+                        audioController.playBad();
                     }
                     break;
 
                 default:
-                    Debug.Log("Unknown move");
+                    Debug.Log("Seinsei:: Unknown move");
                     break;
             }
         }
@@ -130,5 +147,12 @@ public class sensei_script : MonoBehaviour
             backHand = leftHand;
         }
     }
-    public enum Move {jab,punch,uppercutLeft,uppercutRight,hookLeft,hookRight,block,evade}
+
+    void chooseMove() 
+    { 
+        currentMove =  (Move)Random.Range(0, System.Enum.GetValues(typeof(Move)).Length);
+        audioController.playMove(currentMove);
+    }
+
+    public enum Move {jab,punch,uppercutLeft,uppercutRight,hookLeft,hookRight}
 }

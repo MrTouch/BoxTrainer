@@ -13,8 +13,8 @@ public class audio_controller : MonoBehaviour
     [SerializeField] AudioClip hookLeft;
     [SerializeField] AudioClip hookRight;
 
-    [SerializeField] AudioClip good;
-    [SerializeField] AudioClip bad;
+    [SerializeField] AudioClip[] good;
+    [SerializeField] AudioClip[] bad;
 
     [SerializeField] float punchMinPitch = 0.5f;
     [SerializeField] float punchMaxPitch = 1.5f;
@@ -90,14 +90,16 @@ public class audio_controller : MonoBehaviour
 
     public void playGood()
     {
-        source.clip = good;
+        AudioClip clip = good[Random.Range(0, good.Length - 1)];
+        source.clip = clip;
         source.pitch = 1.0f;
         source.Play();
     }
 
     public void playBad()
     {
-        source.clip = bad;
+        AudioClip clip = bad[Random.Range(0, bad.Length - 1)];
+        source.clip = clip;
         source.pitch = 1.0f;
         source.Play();
     }
