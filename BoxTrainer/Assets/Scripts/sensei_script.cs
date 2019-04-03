@@ -30,7 +30,7 @@ public class sensei_script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        chooseMove();
+        //chooseMove();
     }
 
     // Update is called once per frame
@@ -44,7 +44,7 @@ public class sensei_script : MonoBehaviour
         {
             audioController.playGood();
             animator.SetBool("continue", true);
-            chooseMove();
+            chooseMoveDebug();
         }
 
         //// Move check logic ////
@@ -164,6 +164,42 @@ public class sensei_script : MonoBehaviour
     void chooseMove() 
     { 
         currentMove =  (Move)Random.Range(0, System.Enum.GetValues(typeof(Move)).Length);
+        audioController.playMove(currentMove);
+
+        switch (currentMove)
+        {
+            case Move.hookLeft:
+                animator.SetTrigger(hookLeftHash);
+                break;
+
+            case Move.hookRight:
+                animator.SetTrigger(hookRightHash);
+                break;
+
+            case Move.jab:
+                animator.SetTrigger(jabHash);
+                break;
+
+            case Move.punch:
+                animator.SetTrigger(punchHash);
+                break;
+
+            case Move.uppercutLeft:
+                animator.SetTrigger(upperCutLeftHash);
+                break;
+
+            case Move.uppercutRight:
+                animator.SetTrigger(upperCutRightHash);
+                break;
+
+            default:
+                Debug.Log("Sensei: Unknown move for animation");
+                break;
+        }
+    }
+
+    void chooseMoveDebug()
+    {
         audioController.playMove(currentMove);
 
         switch (currentMove)
