@@ -35,25 +35,14 @@ public class sensei_script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        frontHand = leftHand;
+        backHand = rightHand;
         chooseMove();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Set back & front hand
-        if(Input.GetKeyDown("1")) setHands();
-
-        //Debug
-        
-        if (Input.GetKeyDown("2"))
-        {
-            audioController.playGood();
-            animator.enabled = true;
-            StartCoroutine(chooseMoveCoroutine(chooseDelay));
-        }
-
-
         //// Move check logic ////
         //Check if collision occured in this frame
         if (lastCollision != null && !processedFlag)
@@ -166,7 +155,7 @@ public class sensei_script : MonoBehaviour
         }
     }
 
-    //Function to set front and back hand
+    //OBSOLET (Function to set front and back hand)
     void setHands()
     {
         Vector3 leftHandPos = leftHand.transform.position;
